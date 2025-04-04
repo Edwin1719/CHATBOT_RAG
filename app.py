@@ -26,7 +26,7 @@ def procesar_pdf(pdf_path):
 st.title("Asistente Virtual DATABiQ")
 
 # Procesar el PDF y crear el almacén de vectores
-pdf_path = "RAG_CHATBOT/Perfil_DATABiQ.pdf"
+pdf_path = "Perfil_DATABiQ.pdf"
 if os.path.exists(pdf_path):
     vector_store = procesar_pdf(pdf_path)
 else:
