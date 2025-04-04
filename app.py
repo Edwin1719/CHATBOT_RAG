@@ -8,9 +8,8 @@ from langchain_core.documents import Document
 from langchain_core.messages import HumanMessage, SystemMessage, AIMessage
 from st_social_media_links import SocialMediaIcons
 
-# Cargar variables de entorno y claves de API
-load_dotenv()
-openai_api_key = os.getenv("OPENAI_API_KEY")
+# Acceder a la clave de API desde st.secrets
+openai_api_key = st.secrets["OPENAI_API_KEY"]
 
 # Inicializar modelos de embeddings y lenguaje
 embeddings_model = OpenAIEmbeddings(model="text-embedding-3-large", api_key=openai_api_key)
