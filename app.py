@@ -31,58 +31,60 @@ if os.path.exists(pdf_path):
 else:
     st.error(f"No se encontró el archivo PDF en la ruta: {pdf_path}")
 
-# Inicializar historial de chat
+# Inicializar historial de chat (sin mensajes de sistema repetitivos)
 if "messages" not in st.session_state:
-    st.session_state.messages = [SystemMessage("Asistente para tareas de atención al cliente con conocimientos en Ciencia de Datos.")]
+    st.session_state.messages = []
 
-# Mostrar mensajes del historial en la aplicación
+# Mostrar mensajes previos en la interfaz
 for message in st.session_state.messages:
     with st.chat_message("user" if isinstance(message, HumanMessage) else "assistant"):
         st.markdown(message.content)
 
 # Procesar la entrada del usuario
 if prompt := st.chat_input("¿En qué puedo ayudarte hoy?"):
-    st.session_state.messages.append(HumanMessage(prompt))
+    st.session_state.messages.append(HumanMessage(content=prompt))
     with st.chat_message("user"):
         st.markdown(prompt)
 
     # Recuperar documentos relevantes
     retriever = vector_store.as_retriever(search_type="similarity", search_kwargs={"k": 3})
     docs = retriever.invoke(prompt)
+    contexto = " ".join(doc.page_content for doc in docs) if docs else ""
 
-    # Determinar el contexto para la respuesta
-    if docs:
-        contexto = " ".join(doc.page_content for doc in docs)
-        system_prompt = f"""Eres un asistente para tareas de atención al cliente de DATABiQ.COM con conocimientos en ciencia de datos.
-        Utiliza las siguientes piezas de contexto recuperado para responder la pregunta.
-        Si no conoces la respuesta basándote en el contexto proporcionado, utiliza tu conocimiento general.
-        Usa un máximo de tres oraciones y mantén la respuesta concisa.
-        Contexto: {contexto}"""
-    else:
-        system_prompt = f"""Eres un asistente para tareas de atención al cliente con conocimientos en ciencia de datos.
-        Responde la pregunta utilizando tu conocimiento general.
-        Usa un máximo de tres oraciones y mantén la respuesta concisa."""
+    # Construir mensaje del sistema para esta sola consulta (sin guardarlo en el historial)
+    system_prompt = (
+        f"Eres un asistente para tareas de atención al cliente de DATABiQ.COM con conocimientos en ciencia de datos. "
+        f"Utiliza las siguientes piezas de contexto recuperado para responder la pregunta. "
+        f"Si no conoces la respuesta basándote en el contexto proporcionado, utiliza tu conocimiento general. "
+        f"Usa un máximo de tres oraciones y mantén la respuesta concisa. "
+        f"Contexto: {contexto}" if contexto else
+        f"Eres un asistente para tareas de atención al cliente con conocimientos en ciencia de datos. "
+        f"Responde utilizando tu conocimiento general. "
+        f"Usa un máximo de tres oraciones y mantén la respuesta concisa."
+    )
 
-    # Añadir el mensaje del sistema al historial
-    st.session_state.messages.append(SystemMessage(system_prompt))
+    # Crear una copia temporal del historial con el nuevo system prompt
+    mensajes_para_llm = [SystemMessage(content=system_prompt)] + st.session_state.messages
 
-    # Obtener y mostrar la respuesta del modelo de lenguaje
-    respuesta = llm.invoke(st.session_state.messages).content
-    st.session_state.messages.append(AIMessage(respuesta))
+    # Obtener respuesta del modelo
+    respuesta = llm.invoke(mensajes_para_llm).content
+
+    # Mostrar y guardar respuesta
+    st.session_state.messages.append(AIMessage(content=respuesta))
     with st.chat_message("assistant"):
         st.markdown(respuesta)
 
-# Pie de página con información del desarrollador y logos de redes sociales
+# Pie de página
 st.markdown("""
 ---
-**Desarrollador:** Edwin Quintero Alzate/
+**Desarrollador:** Edwin Quintero Alzate  
 **Email:** egqa1975@gmail.com
 """)
 
 social_media_links = [
     "https://www.facebook.com/edwin.quinteroalzate",
     "https://www.linkedin.com/in/edwinquintero0329/",
-    "https://github.com/Edwin1719"]
-
+    "https://github.com/Edwin1719"
+]
 social_media_icons = SocialMediaIcons(social_media_links)
 social_media_icons.render()
