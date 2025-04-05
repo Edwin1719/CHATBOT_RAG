@@ -6,3 +6,4 @@ langchain-community
 langchain-core
 st_social_media_links
 faiss-cpu
+requests
