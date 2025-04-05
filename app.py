@@ -21,28 +21,13 @@ def procesar_pdf(pdf_path):
     documentos = [Document(page_content=frag) for frag in fragmentos]
     return FAISS.from_documents(documentos, embeddings_model)
 
-# Interfaz de usuario con Streamlit
-st.title("Asistente Virtual DATABiQ")
-
 # Agregar el logo en la parte superior izquierda
 st.markdown(
-    """
-    <style>
-    .header-container {
-        display: flex;
-        align-items: center;
-    }
-    .header-container img {
-        margin-right: 20px;
-    }
-    .header-container h1, .header-container p {
-        text-align: center;
-        flex: 1;
-    }
+    """<style>.header-container {display: flex;align-items: center;}
+    .header-container img {margin-right: 20px;}
+    .header-container h1, .header-container p {text-align: center;flex: 1;}
     </style>
-    """,
-    unsafe_allow_html=True
-)
+    """,unsafe_allow_html=True)
 
 # Encabezado de la Aplicacion de Streamlit con logo
 st.markdown(
@@ -53,9 +38,7 @@ st.markdown(
             <h1>Asistente Virtual DATABiQ</h1>
         </div>
     </div>
-    """,
-    unsafe_allow_html=True
-)
+    """,unsafe_allow_html=True)
 
 # Procesar el PDF y crear el almacén de vectores
 pdf_path = "Perfil_DATABiQ.pdf"
