@@ -22,6 +22,12 @@ def procesar_pdf(pdf_path):
     documentos = [Document(page_content=frag) for frag in fragmentos]
     return FAISS.from_documents(documentos, embeddings_model)
 
+# URL de la imagen
+imagen_url = "https://www.ahiva.info/gifs-animados/astronomia/Sol/Sol-50.gif"
+
+# Mostrar la imagen encima del título
+st.image(imagen_url, use_container_width=True)
+
 # Agregar el logo en la parte superior izquierda
 st.markdown(
     """<style>.header-container {display: flex;align-items: center;}
