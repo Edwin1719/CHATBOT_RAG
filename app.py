@@ -23,7 +23,7 @@ def procesar_pdf(pdf_path):
     return FAISS.from_documents(documentos, embeddings_model)
 
 # URL de la imagen
-imagen_url = "https://www.ahiva.info/gifs-animados/astronomia/Sol/Sol-50.gif"
+imagen_url = "https://www.valuetech.cl/wp-content/uploads/2022/08/Portadas-Contenidos-Sitio-8.png"
 
 # Mostrar la imagen encima del título
 st.image(imagen_url, use_container_width=True)
