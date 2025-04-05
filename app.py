@@ -30,15 +30,6 @@ st.markdown(
     </style>
     """,unsafe_allow_html=True)
 
-# Interfaz en Streamlit
-# URL de la imagen
-image_url = "https://cdn.cpdonline.co.uk/wp-content/uploads/2023/04/28123407/Experienced-chef-de-partie-1200x350.jpg"
-image_response = requests.get(image_url)
-image = Image.open(BytesIO(image_response.content))
-
-# Mostrar la imagen antes del título
-st.image(image, caption=' ', use_column_width=True)
-
 # Encabezado de la Aplicacion de Streamlit con logo
 st.markdown(
     """
