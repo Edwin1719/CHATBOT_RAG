@@ -1,4 +1,5 @@
 import os
+import requests
 import streamlit as st
 from PyPDF2 import PdfReader
 from langchain_openai import OpenAIEmbeddings, ChatOpenAI
