@@ -42,7 +42,7 @@ st.markdown(
     <div class="header-container">
         <img src="https://cdn-icons-gif.flaticon.com/17576/17576923.gif" width="50" height="50">
         <div>
-            <h1>ChatBot DATABiQ</h1>
+            <h1>Chat-DATABiQ</h1>
         </div>
     </div>
     """,unsafe_allow_html=True)
