@@ -99,16 +99,18 @@ if prompt := st.chat_input("¿En qué puedo ayudarte hoy?"):
         st.markdown(respuesta)
 
 # Pie de página
-st.markdown("""
----
-**Desarrollador:** Edwin Quintero Alzate  
-**Email:** egqa1975@gmail.com
-""")
+st.markdown(
+    """
+    <div style='text-align: center;'>
+        <strong>Desarrollador:</strong> Edwin Quintero Alzate<br>
+        <strong>Email:</strong> egqa1975@gmail.com
+    </div>
+    """, 
+    unsafe_allow_html=True)
 
 social_media_links = [
     "https://www.facebook.com/edwin.quinteroalzate",
     "https://www.linkedin.com/in/edwinquintero0329/",
-    "https://github.com/Edwin1719"
-]
+    "https://github.com/Edwin1719"]
 social_media_icons = SocialMediaIcons(social_media_links)
 social_media_icons.render()
