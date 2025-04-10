@@ -43,7 +43,7 @@ st.markdown(
         <img src="https://cdn-icons-gif.flaticon.com/17576/17576923.gif" width="50" height="50">
         <div>
             <h1>Chat-DATABiQ</h1>
-            <p>Asistente de servicio al cliente de DATABiQ.COM con amplios conocimientos en Analisis y Ciencia de Datos</p>
+            <p>Servicio al cliente de DATABiQ.COM con experiencia en Analisis y Ciencia de Datos</p>
         </div>
     </div>
     """,unsafe_allow_html=True)
